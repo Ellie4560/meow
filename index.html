@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جلد مزون</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            gap: 20px;
+            position: relative;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .yes {
+            background-color: green;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+        .no {
+            background-color: red;
+            color: white;
+            position: absolute;
+            z-index: 1;
+        }
+        .hidden-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>نجلد مزون بكره ولا؟</h1>
+    <div class="buttons">
+        <button class="yes" onclick="showBox()">YES</button>
+        <button class="no" id="noButton">NO</button>
+    </div>
+    <div class="hidden-box" id="hiddenBox">غصب علييك</div>
+    
+    <script>
+        function showBox() {
+            document.getElementById('hiddenBox').style.display = 'block';
+        }
+
+        function moveNo() {
+            let noButton = document.getElementById('noButton');
+            let yesButton = document.querySelector('.yes');
+            let radius = 100; // نصف القطر للحركة حول زر YES
+            let angle = (Date.now() / 100) % 360; // زاوية الحركة
+            let x = yesButton.offsetLeft + yesButton.offsetWidth / 2 + radius * Math.cos(angle);
+            let y = yesButton.offsetTop + yesButton.offsetHeight / 2 + radius * Math.sin(angle);
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let noButton = document.getElementById('noButton');
+            noButton.style.position = 'absolute';
+            setInterval(moveNo, 50);
+        });
+    </script>
+</body>
+</html>
